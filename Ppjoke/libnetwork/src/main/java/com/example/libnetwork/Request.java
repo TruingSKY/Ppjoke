@@ -162,7 +162,7 @@ public abstract class Request<T, R extends Request> implements Cloneable {
         return result;
     }
 
-    public R cacheStrategy(@CacheStrategy int cacheStrategy){
+    public R cacheStrategy(@CacheStrategy int cacheStrategy) {
         this.cacheStrategy = cacheStrategy;
         return (R) this;
     }
@@ -175,7 +175,7 @@ public abstract class Request<T, R extends Request> implements Cloneable {
         return call;
     }
 
-    protected abstract okhttp3.Request generateRequest(okhttp3.Request.Builder builder) ;
+    protected abstract okhttp3.Request generateRequest(okhttp3.Request.Builder builder);
 
     private void addHeaders(okhttp3.Request.Builder builder) {
         for (Map.Entry<String, String> entry : headers.entrySet()) {
@@ -209,7 +209,7 @@ public abstract class Request<T, R extends Request> implements Cloneable {
         return null;
     }
 
-    private void saveCache(T body){
+    private void saveCache(T body) {
         String key = TextUtils.isEmpty(cacheKey) ? generateCacheKey() : cacheKey;
         CacheManager.save(key, body);
     }
@@ -230,4 +230,9 @@ public abstract class Request<T, R extends Request> implements Cloneable {
         return result;
     }
 
+    @NonNull
+    @Override
+    public Request clone() throws CloneNotSupportedException {
+        return (Request<T, R>) super.clone();
+    }
 }

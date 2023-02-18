@@ -70,4 +70,8 @@ dependencies {
     implementation project(':libcommon')
     implementation project(':libnetwork')
     implementation 'com.alibaba:fastjson:1.2.59'
+
+    //错误收集
+    implementation 'com.tencent.bugly:crashreport:latest.release'
+    implementation 'com.tencent.bugly:nativecrashreport:latest.release'
 }

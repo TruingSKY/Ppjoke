@@ -65,6 +65,11 @@ public abstract class AbsListFragment<T, M extends AbsViewModel<T>> extends Frag
 
     }
 
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        genericViewModel();
+    }
 
     @SuppressLint("FragmentLiveDataObserve")
     private void genericViewModel() {
