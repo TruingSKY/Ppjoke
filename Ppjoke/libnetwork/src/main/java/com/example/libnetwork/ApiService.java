@@ -71,7 +71,7 @@ public class ApiService {
     }
 
     public static void init(String baseUrl,Convert convert){
-        ApiService.sBaseUrl = baseUrl;
+        sBaseUrl = baseUrl;
         if (convert == null){
             convert = new JsonConvert();
         }

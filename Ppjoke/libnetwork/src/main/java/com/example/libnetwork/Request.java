@@ -10,6 +10,8 @@ import androidx.arch.core.executor.ArchTaskExecutor;
 
 import com.example.libnetwork.cache.CacheManager;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.io.IOException;
 import java.io.Serializable;
 import java.lang.annotation.Retention;
@@ -45,6 +47,8 @@ public abstract class Request<T, R extends Request> implements Cloneable {
     private Class mClaz;
     private String cacheKey;
     private int cacheStrategy;
+    //private Class mClaz;
+    private int mCacheStrategy = NET_ONLY;
 
     @IntDef({CACHE_ONLY, CACHE_FIRST, NET_CACHE, NET_ONLY})
     @Retention(RetentionPolicy.SOURCE)
@@ -93,7 +97,7 @@ public abstract class Request<T, R extends Request> implements Cloneable {
 
     @SuppressLint("RestrictedApi")
     public void execute(final JsonCallback callback) {
-        if (cacheStrategy != NET_ONLY) {
+        if (mCacheStrategy != NET_ONLY) {
             ArchTaskExecutor.getIOThreadExecutor().execute(new Runnable() {
                 @Override
                 public void run() {
@@ -104,25 +108,52 @@ public abstract class Request<T, R extends Request> implements Cloneable {
                 }
             });
         }
+        if (mCacheStrategy != CACHE_ONLY) {
+            getCall().enqueue(new Callback() {
+                @Override
+                public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                    ApiResponse<T> result = new ApiResponse<>();
+                    result.message = e.getMessage();
+                    callback.onError(result);
+                }
 
-        getCall().enqueue(new Callback() {
-            @Override
-            public void onFailure(@NonNull Call call, @NonNull IOException e) {
-                ApiResponse<T> response = new ApiResponse<>();
-                response.message = e.getMessage();
-                callback.onError(response);
-            }
+                @Override
+                public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                    ApiResponse<T> result = parseResponse(response, callback);
+                    if (!result.success) {
+                        callback.onError(result);
+                    } else {
+                        callback.onSuccess(result);
+                    }
+                }
+            });
+        }
+    }
 
-            @Override
-            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
-                ApiResponse<T> apiResponse = parseResponse(response, callback);
-                if (apiResponse.success) {
-                    callback.onError(apiResponse);
-                } else {
-                    callback.onSuccess(apiResponse);
+    public ApiResponse<T> execute() {
+        if (mType == null) {
+            throw new RuntimeException("同步方法,response 返回值 类型必须设置");
+        }
+
+        if (mCacheStrategy == CACHE_ONLY) {
+            return readCache();
+        }
+
+        if (mCacheStrategy != CACHE_ONLY) {
+            ApiResponse<T> result = null;
+            try {
+                Response response = getCall().execute();
+                result = parseResponse(response, null);
+            } catch (IOException e) {
+                e.printStackTrace();
+                if (result == null) {
+                    result = new ApiResponse<>();
+                    result.message = e.getMessage();
                 }
             }
-        });
+            return result;
+        }
+        return null;
     }
 
     private ApiResponse<T> parseResponse(Response response, JsonCallback<T> callback) {
@@ -181,32 +212,6 @@ public abstract class Request<T, R extends Request> implements Cloneable {
         for (Map.Entry<String, String> entry : headers.entrySet()) {
             builder.addHeader(entry.getKey(), entry.getValue());
         }
-    }
-
-    public ApiResponse<T> execute() {
-        if (mType == null) {
-            throw new RuntimeException("同步方法,response 返回值 类型必须设置");
-        }
-
-        if (cacheStrategy == CACHE_ONLY) {
-            return readCache();
-        }
-
-        if (cacheStrategy != CACHE_ONLY) {
-            ApiResponse<T> result = null;
-            try {
-                Response response = getCall().execute();
-                result = parseResponse(response, null);
-            } catch (IOException e) {
-                e.printStackTrace();
-                if (result == null) {
-                    result = new ApiResponse<>();
-                    result.message = e.getMessage();
-                }
-            }
-            return result;
-        }
-        return null;
     }
 
     private void saveCache(T body) {
