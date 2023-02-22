@@ -96,7 +96,7 @@ public abstract class Request<T, R extends Request> implements Cloneable {
     }
 
     @SuppressLint("RestrictedApi")
-    public void execute(final JsonCallback callback) {
+    public void execute(final JsonCallback<T> callback) {
         if (mCacheStrategy != NET_ONLY) {
             ArchTaskExecutor.getIOThreadExecutor().execute(new Runnable() {
                 @Override

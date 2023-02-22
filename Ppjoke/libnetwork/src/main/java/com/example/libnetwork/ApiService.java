@@ -23,7 +23,6 @@ public class ApiService {
     protected static String sBaseUrl;
     protected static Convert sConvert;
 
-
     static {
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
