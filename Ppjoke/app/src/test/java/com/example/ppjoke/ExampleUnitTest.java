@@ -22,7 +22,7 @@ public class ExampleUnitTest {
 
     @Test
     public void TestHttp() {
-        GetRequest<JSONObject> request = new GetRequest<JSONObject>("http://www.baidu.com");
+        GetRequest<JSONObject> request = new GetRequest<>("http://www.baidu.com");
 //        request.execute();
 
         request.execute(new JsonCallback<JSONObject>() {

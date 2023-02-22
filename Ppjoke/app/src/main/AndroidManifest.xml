@@ -43,6 +43,24 @@
         <activity
             android:name=".ui.publish.PublishActivity"
             android:screenOrientation="portrait"></activity>
+
+        <activity
+            android:name=".ui.publish.CaptureActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/capture"></activity>
+
+        <activity
+            android:name=".ui.publish.PreviewActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/preview"></activity>
+
+        <activity android:name=".ui.login.LoginActivity"></activity>
+
+        <activity
+            android:name=".ui.detail.FeedDetailActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/feedDetail"></activity>
+
     </application>
 
 </manifest>
