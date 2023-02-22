@@ -14,7 +14,7 @@ import java.io.Serializable;
         //  , inheritSuperIndices = false//如果 该值为true,那么父类中标记的indices{}索引也会算作该表的索引
 
         //  , primaryKeys = {"key"}//主键,一些策略逻辑会用到，比如插入一条数据时如果已存在,则更新否则算新的插入,那么怎么判断 ,数据库中是否已存在该条数据呢？就判断提供的主键,在表中是否已存在
- 
+
         //  , foreignKeys = {
         //外键,一般用于多表数据查询.可以配置多个外键
         //ForeignKey用来设置关联表数据更新时所进行的操作，比如可以在@ForeignKey注解中设置onDelete=CASCADE，这样当Cache表中某个对应记录被删除时，ForeignTable表的所有相关记录也会被删除掉。
@@ -43,6 +43,7 @@ import java.io.Serializable;
 
 )
 public class Cache implements Serializable {
+    //PrimaryKey 主键约束
     //PrimaryKey 必须要有,且不为空,autoGenerate 主键的值是否由Room自动生成,默认false
     @PrimaryKey(autoGenerate = false)
     @NonNull
