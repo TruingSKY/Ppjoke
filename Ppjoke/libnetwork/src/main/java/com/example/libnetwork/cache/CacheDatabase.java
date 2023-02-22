@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase;
 
 import com.example.libcommon.global.AppGlobals;
 
-@Database(entities = {Cache.class}, version = 1)
+@Database(entities = {Cache.class}, version = 1,exportSchema = true)
 //数据读取、存储时数据转换器,比如将写入时将Date转换成Long存储，读取时把Long转换Date返回
 //@TypeConverters(DateConverter.class)
 public abstract class CacheDatabase extends RoomDatabase {
