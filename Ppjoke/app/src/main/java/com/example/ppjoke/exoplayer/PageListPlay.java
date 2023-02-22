@@ -3,8 +3,8 @@ package com.example.ppjoke.exoplayer;
 import android.app.Application;
 import android.view.LayoutInflater;
 
+import com.example.libcommon.global.AppGlobals;
 import com.example.ppjoke.R;
-import com.example.ppjoke.utils.AppGlobals;
 import com.google.android.exoplayer2.DefaultLoadControl;
 import com.google.android.exoplayer2.DefaultRenderersFactory;
 import com.google.android.exoplayer2.ExoPlayerFactory;

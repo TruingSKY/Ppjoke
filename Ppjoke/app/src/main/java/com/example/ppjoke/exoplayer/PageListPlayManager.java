@@ -3,7 +3,7 @@ package com.example.ppjoke.exoplayer;
 import android.app.Application;
 import android.net.Uri;
 
-import com.example.ppjoke.utils.AppGlobals;
+import com.example.libcommon.global.AppGlobals;
 import com.google.android.exoplayer2.source.MediaSource;
 import com.google.android.exoplayer2.source.ProgressiveMediaSource;
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
