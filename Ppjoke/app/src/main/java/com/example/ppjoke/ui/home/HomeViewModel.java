@@ -1,8 +1,10 @@
 package com.example.ppjoke.ui.home;
 
+import android.annotation.SuppressLint;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.arch.core.executor.ArchTaskExecutor;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.paging.DataSource;
@@ -31,6 +33,8 @@ public class HomeViewModel extends AbsViewModel<Feed> {
     private volatile boolean witchCache = true;
     private MutableLiveData<PagedList<Feed>> cacheLiveData = new MutableLiveData<>();
     private AtomicBoolean loadAfter = new AtomicBoolean(false);
+    private String mFeedType;
+
     public HomeViewModel() {
         mText = new MutableLiveData<>();
         mText.setValue("This is home fragment");
@@ -41,6 +45,15 @@ public class HomeViewModel extends AbsViewModel<Feed> {
         return new FeedDataSource();
     }
 
+    public MutableLiveData<PagedList<Feed>> getCacheLiveData() {
+        return cacheLiveData;
+    }
+
+
+    public void setFeedType(String feedType) {
+        mFeedType = feedType;
+    }
+
     public LiveData<String> getText() {
         return mText;
     }
@@ -49,14 +62,17 @@ public class HomeViewModel extends AbsViewModel<Feed> {
         @Override
         public void loadInitial(@NonNull LoadInitialParams<Integer> params, @NonNull LoadInitialCallback<Feed> callback) {
             //加载初始化数据的
-            loadData(0, callback);
+            Log.e("homeviewmodel", "loadInitial: ");
+            loadData(0, params.requestedLoadSize, callback);
             witchCache = false;
         }
 
         @Override
         public void loadAfter(@NonNull LoadParams<Integer> params, @NonNull LoadCallback<Feed> callback) {
             //加载分页数据的
-            loadData(params.key, callback);
+//            loadData(params.key, callback);
+            Log.e("homeviewmodel", "loadAfter: ");
+            loadData(params.key, params.requestedLoadSize, callback);
         }
 
         @Override
@@ -72,16 +88,16 @@ public class HomeViewModel extends AbsViewModel<Feed> {
         }
     }
 
-    private void loadData(int key, ItemKeyedDataSource.LoadCallback<Feed> callback) {
+    private void loadData(int key, int count,  ItemKeyedDataSource.LoadCallback<Feed> callback) {
         if (key > 0) {
-//            loadAfter.set(true);
+            loadAfter.set(true);
         }
         //feeds/queryHotFeedsList
         Request request = ApiService.get("/feeds/queryHotFeedsList")
-                .addParam("feedType", null)
+                .addParam("feedType", mFeedType)
                 .addParam("userId", UserManager.get().getUserId())
                 .addParam("feedId", key)
-                .addParam("pageCount", 10)
+                .addParam("pageCount", count)
                 .responseType(new TypeReference<ArrayList<Feed>>() {
                 }.getType());
 
@@ -125,5 +141,19 @@ public class HomeViewModel extends AbsViewModel<Feed> {
 
         Log.e("loadData", "loadData: key:" + key);
 
+    }
+
+    @SuppressLint("RestrictedApi")
+    public void loadAfter(int id, ItemKeyedDataSource.LoadCallback<Feed> callback) {
+        if (loadAfter.get()) {
+            callback.onResult(Collections.emptyList());
+            return;
+        }
+        ArchTaskExecutor.getIOThreadExecutor().execute(new Runnable() {
+            @Override
+            public void run() {
+                loadData(id, config.pageSize, callback);
+            }
+        });
     }
 }
