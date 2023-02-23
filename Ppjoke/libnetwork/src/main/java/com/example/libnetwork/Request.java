@@ -65,12 +65,34 @@ public abstract class Request<T, R extends Request> implements Cloneable {
         return (R) this;
     }
 
+//    public R addParam(String key, Object value) {
+//        try {
+//            Field field = value.getClass().getField("TYPE");
+//            Class claz = (Class) field.get(null);
+//            if (claz.isPrimitive()) {
+//                params.put(key, value);
+//            }
+//        } catch (NoSuchFieldException e) {
+//            e.printStackTrace();
+//        } catch (IllegalAccessException e) {
+//            e.printStackTrace();
+//        }
+//        return (R) this;
+//    }
     public R addParam(String key, Object value) {
+        if (value == null) {
+            return (R) this;
+        }
+        //int byte char short long double float boolean 和他们的包装类型，但是除了 String.class 所以要额外判断
         try {
-            Field field = value.getClass().getField("TYPE");
-            Class claz = (Class) field.get(null);
-            if (claz.isPrimitive()) {
+            if (value.getClass() == String.class) {
                 params.put(key, value);
+            } else {
+                Field field = value.getClass().getField("TYPE");
+                Class claz = (Class) field.get(null);
+                if (claz.isPrimitive()) {
+                    params.put(key, value);
+                }
             }
         } catch (NoSuchFieldException e) {
             e.printStackTrace();

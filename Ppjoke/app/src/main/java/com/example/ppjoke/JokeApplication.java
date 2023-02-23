@@ -3,7 +3,6 @@ package com.example.ppjoke;
 import android.app.Application;
 
 import com.example.libnetwork.ApiService;
-import com.tencent.bugly.crashreport.CrashReport;
 
 /**
  * 咱们的服务器已经部署到公网了.
@@ -20,7 +19,8 @@ public class JokeApplication extends Application {
         ApiService.init("http://123.56.232.18:8080/serverdemo", null);
         //http://localhost:8080/serverdemo/v2/api-docs
 //        ApiService.init("http://localhost:8080/serverdemo", null);
-
-        CrashReport.initCrashReport(getApplicationContext(), "eb455a94a3", true);
+//        CrashReport.initCrashReport(getApplicationContext(), "eb455a94a3", true);
     }
 }
+
+

@@ -69,7 +69,7 @@ dependencies {
     implementation project(':libnetwork')
     implementation 'com.alibaba:fastjson:1.2.59'
 
-    //错误收集
-    implementation 'com.tencent.bugly:crashreport:latest.release'
-    implementation 'com.tencent.bugly:nativecrashreport:latest.release'
+    // 权限请求框架：https://github.com/getActivity/XXPermissions
+    implementation 'com.github.getActivity:XXPermissions:16.2'
+
 }

@@ -1,11 +1,15 @@
 package com.example.ppjoke;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.MenuItem;
 
 import com.example.ppjoke.utils.NavGraphBuilder;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.hjq.permissions.OnPermissionCallback;
+import com.hjq.permissions.Permission;
+import com.hjq.permissions.XXPermissions;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,6 +17,8 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
@@ -30,7 +36,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
 //        NavGraphBuilder.build(navController);
         NavGraphBuilder.build(this, navController, fragment.getId());
-
+        permissionReadPhoneState();
         navView.setOnNavigationItemSelectedListener(this);
     }
 
@@ -38,5 +44,20 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         navController.navigate(menuItem.getItemId());
         return !TextUtils.isEmpty(menuItem.getTitle());
+    }
+
+    public void permissionReadPhoneState() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) { //Android 11 授权读写权限
+            XXPermissions.with(this)
+                    .permission(Permission.READ_PHONE_STATE)
+                    .request(new OnPermissionCallback() {
+                        @Override
+                        public void onGranted(List<String> permissions, boolean all) {
+                            if (all) {
+
+                            }
+                        }
+                    });
+        };
     }
 }

@@ -138,7 +138,6 @@ public class ListPlayerView extends FrameLayout implements IPlayTarget, PlayerCo
         playBtnParams.gravity = Gravity.CENTER;
         playBtn.setLayoutParams(playBtnParams);
 
-
     }
 
     @Override
