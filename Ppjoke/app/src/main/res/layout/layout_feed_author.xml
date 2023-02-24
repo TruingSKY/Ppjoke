@@ -29,7 +29,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:src="@mipmap/ic_launcher_round"></com.example.ppjoke.view.PPImageView>
+            tools:src="@mipmap/ic_launcher_round"/>
 
         <TextView
             android:id="@+id/author_name"
