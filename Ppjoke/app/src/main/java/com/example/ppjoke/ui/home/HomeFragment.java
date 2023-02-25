@@ -56,7 +56,7 @@ public class HomeFragment extends AbsListFragment<Feed, HomeViewModel> {
 
     @Override
     public PagedListAdapter getAdapter() {
-        feedType = getArguments() == null ? "all" : getArguments().getString("feedType");
+        feedType  = getArguments() == null ? "all" : getArguments().getString("feedType");
         return new FeedAdapter(getContext(), feedType) {
             @Override
             public void onViewAttachedToWindow2(@NonNull ViewHolder holder) {

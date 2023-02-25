@@ -133,7 +133,7 @@ public class HomeViewModel extends AbsViewModel<Feed> {
             if (key > 0) {
                 //通过BoundaryPageData发送数据 告诉UI层 是否应该主动关闭上拉加载分页的动画
                 ((MutableLiveData) getBoundaryPageData()).postValue(data.size() > 0);
-                loadAfter.set(false);
+                loadAfter.set(false);//关闭分页加载动画
             }
         } catch (CloneNotSupportedException e) {
             e.printStackTrace();
