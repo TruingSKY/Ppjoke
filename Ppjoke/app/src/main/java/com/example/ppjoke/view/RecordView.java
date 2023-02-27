@@ -15,8 +15,9 @@ import android.view.ViewConfiguration;
 
 import androidx.annotation.Nullable;
 
-import com.mooc.libcommon.utils.PixUtils;
-import com.mooc.ppjoke.R;
+import com.example.libcommon.global.utils.PixUtils;
+import com.example.ppjoke.R;
+
 
 public class RecordView extends View implements View.OnLongClickListener, View.OnClickListener {
 
