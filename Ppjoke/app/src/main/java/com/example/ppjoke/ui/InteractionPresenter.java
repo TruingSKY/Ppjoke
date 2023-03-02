@@ -159,7 +159,6 @@ public class InteractionPresenter {
     }
 
     private static void toggleCommentLikeInternal(Comment comment) {
-
         ApiService.get(URL_TOGGLE_COMMENT_LIKE)
                 .addParam("commentId", comment.commentId)
                 .addParam("userId", UserManager.get().getUserId())
@@ -171,7 +170,6 @@ public class InteractionPresenter {
                             comment.getUgc().setHasLiked(hasLiked);
                         }
                     }
-
                     @Override
                     public void onError(ApiResponse<JSONObject> response) {
                         showToast(response.message);
