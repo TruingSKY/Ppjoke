@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.MenuItem;
 
+import com.example.libcommon.global.utils.StatusBar;
 import com.example.ppjoke.utils.NavGraphBuilder;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.hjq.permissions.OnPermissionCallback;
@@ -26,6 +27,12 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //由于 启动时设置了 R.style.launcher 的windowBackground属性
+        //势必要在进入主页后,把窗口背景清理掉
+        setTheme(R.style.AppTheme);
+
+        //启用沉浸式布局，白底黑字
+        StatusBar.fitSystemBar(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         BottomNavigationView navView = findViewById(R.id.nav_view);
