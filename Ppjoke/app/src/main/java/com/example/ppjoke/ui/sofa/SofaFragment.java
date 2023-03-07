@@ -40,7 +40,6 @@ public class SofaFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-
         binding = FragmentSofaBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
