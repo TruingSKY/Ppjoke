@@ -121,8 +121,6 @@ public abstract class AbsPagedListAdapter<T, VH extends RecyclerView.ViewHolder>
             return (VH) new RecyclerView.ViewHolder(view) {
             };
         }
-
-
         return onCreateViewHolder2(parent, viewType);
     }
 
