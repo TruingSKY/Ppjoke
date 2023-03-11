@@ -1,4 +1,4 @@
-package com.example.ppjoke.ui.login;
+package com.example.ppjoke.ui.my;
 
 import android.os.Bundle;
 import android.text.TextUtils;

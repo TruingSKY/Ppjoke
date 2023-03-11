@@ -1,4 +1,4 @@
-package com.example.ppjoke.ui.login;
+package com.example.ppjoke.ui.my;
 
 import android.content.Context;
 import android.text.TextUtils;
@@ -15,6 +15,7 @@ import com.example.ppjoke.model.Feed;
 import com.example.ppjoke.ui.InteractionPresenter;
 import com.example.ppjoke.ui.MutableItemKeyedDataSource;
 import com.example.ppjoke.ui.home.FeedAdapter;
+import com.example.ppjoke.ui.login.UserManager;
 import com.example.ppjoke.utils.TimeUtils;
 
 public class ProfileListAdapter extends FeedAdapter {

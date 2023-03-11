@@ -1,4 +1,4 @@
-package com.example.ppjoke.ui.login;
+package com.example.ppjoke.ui.my;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
@@ -9,6 +9,7 @@ import com.example.libnetwork.ApiResponse;
 import com.example.libnetwork.ApiService;
 import com.example.ppjoke.model.Feed;
 import com.example.ppjoke.ui.AbsViewModel;
+import com.example.ppjoke.ui.login.UserManager;
 
 import java.util.ArrayList;
 import java.util.Collections;

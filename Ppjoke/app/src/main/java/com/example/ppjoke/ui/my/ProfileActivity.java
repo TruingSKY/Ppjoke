@@ -1,4 +1,4 @@
-package com.example.ppjoke.ui.login;
+package com.example.ppjoke.ui.my;
 
 import android.content.Context;
 import android.content.Intent;
@@ -16,6 +16,7 @@ import com.example.libcommon.global.utils.StatusBar;
 import com.example.ppjoke.R;
 import com.example.ppjoke.databinding.ActivityLayoutProfileBinding;
 import com.example.ppjoke.model.User;
+import com.example.ppjoke.ui.login.UserManager;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
