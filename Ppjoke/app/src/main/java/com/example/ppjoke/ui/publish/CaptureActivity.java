@@ -34,6 +34,7 @@ import androidx.camera.core.VideoCapture;
 import androidx.camera.core.VideoCaptureConfig;
 import androidx.core.app.ActivityCompat;
 import androidx.databinding.DataBindingUtil;
+import androidx.databinding.ViewDataBinding;
 
 import com.example.ppjoke.R;
 import com.example.ppjoke.databinding.ActivityLayoutCaptureBinding;
