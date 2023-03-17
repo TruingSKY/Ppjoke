@@ -95,10 +95,6 @@ public class TagBottomSheetDialogFragment extends BottomSheetDialogFragment {
         });
     }
 
-    public void setOnTagItemSelectedListener(OnTagItemSelectedListener listener) {
-        this.listener = listener;
-    }
-
 
     class TagsAdapter extends RecyclerView.Adapter {
 
